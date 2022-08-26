@@ -1,3 +1,3 @@
 # extras
 
-a "extra feature" pluto for PlutoMC server.
+a "extra feature" plugin for PlutoMC server.
