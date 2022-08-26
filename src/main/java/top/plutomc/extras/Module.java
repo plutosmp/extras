@@ -26,8 +26,7 @@ public abstract class Module {
             if (module instanceof Listener) {
                 ExtrasPlugin.getInstance().getServer().getPluginManager().registerEvents((Listener) module, ExtrasPlugin.getInstance());
             }
-            if (module instanceof CommandModule) {
-                CommandModule commandModule = (CommandModule) module;
+            if (module instanceof CommandModule commandModule) {
                 commandModule.commands().forEach(s -> registerCommand(s, (CommandModule) module));
             }
             module.enable();
