@@ -3,6 +3,8 @@ package top.plutomc.extras;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
+import top.plutomc.extras.autounlockrecipe.AutoUnlockRecipeModule;
+import top.plutomc.extras.modules.customrecipe.CustomRecipeModule;
 
 import java.io.File;
 import java.util.HashSet;
@@ -14,7 +16,8 @@ public abstract class Module {
 
     // register all the modules here
     public static void registerModules() {
-
+        register(new CustomRecipeModule());
+        register(new AutoUnlockRecipeModule());
     }
 
     public static void load() {

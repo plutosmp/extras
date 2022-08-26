@@ -2,6 +2,9 @@ main: top.plutomc.extras.ExtrasPlugin
 name: extras
 version: 1.0.0
 author: GerryYuu
+api-version: 1.19
 commands:
   extras:
     permission: extras.command
+  recipe:
+    permission: recipe.command

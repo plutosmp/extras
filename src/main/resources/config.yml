@@ -1,0 +1,18 @@
+toggle:
+  customRecipe: true
+customRecipe:
+  elytra:
+    namespace: "elytra"
+    result:
+      material: ELYTRA
+      amount: 1
+      enchantments: {}
+    patten:
+      - "FEF"
+      - "PDP"
+      - "FEF"
+    recipe:
+      'F': "FEATHER"
+      'P': "PHANTOM_MEMBRANE"
+      'D': "DIAMOND_CHESTPLATE"
+      'E': "ENDER_EYE"
