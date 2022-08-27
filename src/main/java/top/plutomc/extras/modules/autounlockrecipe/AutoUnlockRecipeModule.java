@@ -1,4 +1,4 @@
-package top.plutomc.extras.autounlockrecipe;
+package top.plutomc.extras.modules.autounlockrecipe;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

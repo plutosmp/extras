@@ -3,7 +3,7 @@ package top.plutomc.extras;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
-import top.plutomc.extras.autounlockrecipe.AutoUnlockRecipeModule;
+import top.plutomc.extras.modules.autounlockrecipe.AutoUnlockRecipeModule;
 import top.plutomc.extras.modules.customrecipe.CustomRecipeModule;
 
 import java.io.File;
