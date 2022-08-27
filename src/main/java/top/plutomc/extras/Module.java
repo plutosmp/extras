@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import top.plutomc.extras.modules.autounlockrecipe.AutoUnlockRecipeModule;
 import top.plutomc.extras.modules.customrecipe.CustomRecipeModule;
+import top.plutomc.extras.modules.slimechunk.SlimeChunkModule;
 
 import java.io.File;
 import java.util.HashSet;
@@ -18,6 +19,7 @@ public abstract class Module {
     public static void registerModules() {
         register(new CustomRecipeModule());
         register(new AutoUnlockRecipeModule());
+        register(new SlimeChunkModule());
     }
 
     public static void load() {
