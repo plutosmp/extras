@@ -1,12 +1,14 @@
 toggle:
   customRecipe: true
+  autoUnlockRecipe: true
+  slimeChunk: true
 customRecipe:
   elytra:
     namespace: "elytra"
     result:
       material: ELYTRA
       amount: 1
-      enchantments: {}
+      enchantments: { }
     patten:
       - "FEF"
       - "PDP"

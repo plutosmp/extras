@@ -1,9 +1,7 @@
 package top.plutomc.extras.modules.customrecipe;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ShapedRecipe;
-import top.plutomc.extras.ExtrasPlugin;
 import top.plutomc.extras.utils.ObjectUtil;
 import top.plutomc.extras.utils.RecipeUtil;
 
@@ -34,10 +32,5 @@ public class Recipe extends ShapedRecipe {
         for (Map.Entry<String, Material> materialEntry : materialMap.entrySet()) {
             setIngredient(materialEntry.getKey().toCharArray()[0], materialEntry.getValue());
         }
-    }
-
-    public void register() {
-        Bukkit.removeRecipe(getKey());
-        ExtrasPlugin.getInstance().getServer().addRecipe(this);
     }
 }

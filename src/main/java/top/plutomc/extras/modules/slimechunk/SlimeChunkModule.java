@@ -55,4 +55,9 @@ public final class SlimeChunkModule extends Module implements CommandModule {
     public boolean shouldEnable() {
         return getConfig().getBoolean("toggle.slimeChunk");
     }
+
+    @Override
+    public String name() {
+        return "slimeChunk";
+    }
 }

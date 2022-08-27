@@ -2,18 +2,18 @@ package top.plutomc.extras;
 
 import org.bukkit.command.TabExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import top.plutomc.extras.modules.autounlockrecipe.AutoUnlockRecipeModule;
 import top.plutomc.extras.modules.customrecipe.CustomRecipeModule;
 import top.plutomc.extras.modules.slimechunk.SlimeChunkModule;
 
-import java.io.File;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public abstract class Module {
 
-    private final static Set<Module> MODULES = new HashSet<>();
+    private final static Set<Module> MODULES = new LinkedHashSet<>();
 
     // register all the modules here
     public static void registerModules() {
@@ -40,9 +40,9 @@ public abstract class Module {
 
     public static void unload() {
         for (Module module : MODULES) {
-            module.disable();
-            MODULES.remove(module);
+            disable(module);
         }
+        MODULES.clear();
     }
 
     public static void reload() {
@@ -50,13 +50,23 @@ public abstract class Module {
         load();
     }
 
-    private static void register(Module module) {
+    public static void register(Module module) {
         MODULES.add(module);
     }
 
-    private static void unregister(Module module) {
+    public static void disable(Module module) {
+        if (module instanceof Listener) {
+            HandlerList.unregisterAll((Listener) module);
+        }
+        if (module instanceof CommandModule) {
+            for (String command : ((CommandModule) module).commands()) {
+                if (ExtrasPlugin.getInstance().getCommand(command) != null) {
+                    ExtrasPlugin.getInstance().getCommand(command).setExecutor(null);
+                    ExtrasPlugin.getInstance().getCommand(command).setTabCompleter(null);
+                }
+            }
+        }
         module.disable();
-        MODULES.remove(module);
     }
 
     private static void registerCommand(String commandName, TabExecutor command) {
@@ -66,16 +76,12 @@ public abstract class Module {
         }
     }
 
-    public FileConfiguration getConfig() {
-        return ExtrasPlugin.getInstance().getConfig();
-    }
-
     public void reloadConfig() {
         ExtrasPlugin.getInstance().reloadConfig();
     }
 
-    public File getConfigFile() {
-        return new File(ExtrasPlugin.getInstance().getDataFolder(), "config.yml");
+    public FileConfiguration getConfig() {
+        return ExtrasPlugin.getInstance().getConfig();
     }
 
     public abstract void enable();
@@ -83,4 +89,6 @@ public abstract class Module {
     public abstract void disable();
 
     public abstract boolean shouldEnable();
+
+    public abstract String name();
 }

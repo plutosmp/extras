@@ -22,6 +22,11 @@ public final class ExtrasPlugin extends JavaPlugin {
             saveDefaultConfig();
         }
 
+        if (getCommand("extras") != null) {
+            getCommand("extras").setExecutor(new Command());
+            getCommand("extras").setTabCompleter(new Command());
+        }
+
         getLogger().info("Loading modules...");
         Module.load();
         getLogger().info("Done.");

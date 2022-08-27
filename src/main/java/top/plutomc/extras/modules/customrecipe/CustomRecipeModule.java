@@ -8,6 +8,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import top.plutomc.extras.CommandModule;
+import top.plutomc.extras.ExtrasPlugin;
 import top.plutomc.extras.Module;
 
 import java.util.*;
@@ -16,10 +17,16 @@ public final class CustomRecipeModule extends Module implements CommandModule {
 
     private Set<Recipe> recipes;
 
+    private boolean beingReload = false;
+
     @Override
     public void enable() {
         if (recipes == null) {
-            recipes = new HashSet<>();
+            recipes = new LinkedHashSet<>();
+        }
+        if (beingReload) {
+            reloadConfig();
+            beingReload = false;
         }
         loadRecipe();
     }
@@ -37,6 +44,11 @@ public final class CustomRecipeModule extends Module implements CommandModule {
         return getConfig().getBoolean("toggle.customRecipe");
     }
 
+    @Override
+    public String name() {
+        return "CustomRecipe";
+    }
+
     private void loadRecipe() {
         ConfigurationSection recipeSection = getConfig().getConfigurationSection("customRecipe");
         if (recipeSection != null) {
@@ -45,7 +57,7 @@ public final class CustomRecipeModule extends Module implements CommandModule {
                 Map<String, Object> options = new HashMap<>();
                 if (optionsSection != null) {
                     optionsSection.getKeys(true).forEach(s -> options.put(s, optionsSection.get(s)));
-                    new Recipe(options).register();
+                    register(new Recipe(options));
                 }
             }
         }
@@ -56,10 +68,17 @@ public final class CustomRecipeModule extends Module implements CommandModule {
         return List.of("recipe");
     }
 
+    public void register(Recipe recipe) {
+        Bukkit.removeRecipe(recipe.getKey());
+        ExtrasPlugin.getInstance().getServer().addRecipe(recipe);
+        recipes.add(recipe);
+    }
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (label.equals("recipe")) {
             if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
+                beingReload = true;
                 disable();
                 enable();
                 sender.sendMessage(

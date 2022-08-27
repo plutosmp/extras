@@ -8,3 +8,4 @@ commands:
     permission: extras.command
   recipe:
     permission: recipe.command
+  slimechunk: { }

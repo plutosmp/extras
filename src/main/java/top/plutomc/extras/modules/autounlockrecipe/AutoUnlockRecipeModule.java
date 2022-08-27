@@ -26,4 +26,9 @@ public final class AutoUnlockRecipeModule extends Module implements Listener {
     public boolean shouldEnable() {
         return getConfig().getBoolean("toggle.autoUnlockRecipe");
     }
+
+    @Override
+    public String name() {
+        return "autoUnlockRecipe";
+    }
 }
