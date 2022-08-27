@@ -39,11 +39,15 @@ public final class CustomRecipeModule extends Module implements CommandModule {
 
     private void loadRecipe() {
         ConfigurationSection recipeSection = getConfig().getConfigurationSection("customRecipe");
-        for (String key : recipeSection.getKeys(false)) {
-            ConfigurationSection optionsSection = recipeSection.getConfigurationSection(key);
-            Map<String, Object> options = new HashMap<>();
-            optionsSection.getKeys(true).forEach(s -> options.put(s, optionsSection.get(s)));
-            new Recipe(options).register();
+        if (recipeSection != null) {
+            for (String key : recipeSection.getKeys(false)) {
+                ConfigurationSection optionsSection = recipeSection.getConfigurationSection(key);
+                Map<String, Object> options = new HashMap<>();
+                if (optionsSection != null) {
+                    optionsSection.getKeys(true).forEach(s -> options.put(s, optionsSection.get(s)));
+                    new Recipe(options).register();
+                }
+            }
         }
     }
 
